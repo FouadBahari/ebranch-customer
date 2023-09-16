@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:e_branch_customer/screens/home_screen.dart';
 import 'package:e_branch_customer/screens/pickuplocationmap_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -26,6 +27,8 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   var addressController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   // LatLng location = LatLng(20, 20);
 
@@ -44,6 +47,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
         appBar: CustomAppBar(text: "السلة",
             leading: IconButton(
                 icon: Icon(Icons.arrow_back_ios), onPressed: () {
@@ -446,10 +450,12 @@ class _CartScreenState extends State<CartScreen> {
                                   Map response = await homeProvider.makeOrder(
                                       formData);
                                   // toast(response['msg'], context);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text(response['msg']),
-                                    duration: Duration(seconds: 1),));
+                                    ScaffoldMessenger.of(_scaffoldKey.currentContext!)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(response['msg']),
+                                      duration: Duration(seconds: 1),));
+                                    Navigation.mainNavigator(_scaffoldKey.currentContext!, HomeScreen());
+
                                 });
                         })
                         : const SizedBox()

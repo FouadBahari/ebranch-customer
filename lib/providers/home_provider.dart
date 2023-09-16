@@ -1,6 +1,7 @@
 
 import 'package:e_branch_customer/helpers/helperfunctions.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../models/home_models/allchats_model.dart';
@@ -449,13 +450,13 @@ class HomeProvider extends ChangeNotifier{
     try{
       Map response = await HomeRepositories.makeOrder(formData);
       HomeStates.makeOrderState = MakeOrderState.LOADED;
+
       notifyListeners();
       _cartModel!.data!.clear();
       quantities.clear();
       colors.clear();
       sizes.clear();
       productIds.clear();
-
       return response;
     }catch(e){
       HomeStates.makeOrderState = MakeOrderState.ERROR;
