@@ -450,11 +450,13 @@ class _CartScreenState extends State<CartScreen> {
                                   Map response = await homeProvider.makeOrder(
                                       formData);
                                   // toast(response['msg'], context);
-                                    ScaffoldMessenger.of(_scaffoldKey.currentContext!)
-                                        .showSnackBar(SnackBar(
-                                      content: Text(response['msg']),
-                                      duration: Duration(seconds: 1),));
+                                  ScaffoldMessenger.of(_scaffoldKey.currentContext!)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(response['msg']),
+                                    duration: Duration(seconds: 1),));
+                                  if(response['errNum'] == "S000"){
                                     Navigation.mainNavigator(_scaffoldKey.currentContext!, HomeScreen());
+                                  }
 
                                 });
                         })

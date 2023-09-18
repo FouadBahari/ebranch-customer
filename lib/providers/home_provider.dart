@@ -452,11 +452,13 @@ class HomeProvider extends ChangeNotifier{
       HomeStates.makeOrderState = MakeOrderState.LOADED;
 
       notifyListeners();
-      _cartModel!.data!.clear();
-      quantities.clear();
-      colors.clear();
-      sizes.clear();
-      productIds.clear();
+      if(response['errNum'] == "S000"){
+        _cartModel!.data!.clear();
+        quantities.clear();
+        colors.clear();
+        sizes.clear();
+        productIds.clear();
+      }
       return response;
     }catch(e){
       HomeStates.makeOrderState = MakeOrderState.ERROR;
